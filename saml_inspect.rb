@@ -57,6 +57,15 @@ module Sinatra
   helpers SamlInspectHelpers
 end
 
+class Object
+  def present?
+    !blank?
+  end
+
+  def blank?
+    respond_to?(:empty?) ? empty? : !self
+  end
+end
 
 class SamlInspect < Sinatra::Base
   helpers Sinatra::SamlInspectHelpers
@@ -69,7 +78,7 @@ class SamlInspect < Sinatra::Base
 
   post '/' do
     data = params[:post][:saml]
-    @parsed_data = parse_request_data data
+    @parsed_data = parse_request_data data if data.present?
     erb :index
   end
 end

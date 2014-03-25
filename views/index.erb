@@ -23,7 +23,7 @@
       </form> 
     </div>
 
-    <% unless @parsed_data.nil? %>
+    <% if @parsed_data.present? %>
     <div>
       <h2><small>Parsed data</small></h2>
 
@@ -50,24 +50,20 @@
           <h3 class="panel-title">Query Options</h3>
         </div>
         <div class="panel-body">
-
-          <% unless @parsed_data.has_key? :query_params && @parsed_data[:query_params].nil? %>
-            <table class="table table-hover">
-              <thead>
-                <th>Parameter</th>
-                <th>Data</th>
-              </thead>
-              <tbody>
-                <% @parsed_data[:query_params].each do |k, v| %>
-                  <tr>
-                    <td><%= k %></td>
-                    <td><%= v %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          <%end%>
-
+          <table class="table table-hover">
+            <thead>
+              <th>Parameter</th>
+              <th>Data</th>
+            </thead>
+            <tbody>
+              <% @parsed_data[:query_params].each do |k, v| %>
+                <tr>
+                  <td><%= k %></td>
+                  <td><%= v %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
 
