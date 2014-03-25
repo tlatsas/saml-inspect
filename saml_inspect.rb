@@ -12,7 +12,7 @@ module Sinatra
     def parse_request_data(data)
       uri = URI.parse(data)
 
-      if uri.nil?
+      if uri.query.nil?
         query_string = CGI.parse(data)
       else
         query_string = CGI.parse(uri.query)
