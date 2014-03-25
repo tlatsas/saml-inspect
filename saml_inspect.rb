@@ -40,7 +40,7 @@ module Sinatra
       decoded = Base64.decode64(unescaped)
       xml = Zlib::Inflate.new(-Zlib::MAX_WBITS).inflate(decoded)
 
-      xml = CGI.unescape(xml)
+      #xml = CGI.unescape(xml)
 
       # pretty format
       output = ""
