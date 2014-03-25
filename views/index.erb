@@ -16,7 +16,11 @@
       <form action="/" method="post" role="form">
         <div class="form-group">
           <label for="saml-input">SAML data/request</label>
-          <textarea id="saml-input" rows="<%= @parsed_data.nil? ? 6 : 1 %>" name="post[saml]" class="form-control" placeholder="Paste the request here"></textarea>
+          <textarea id="saml-input"
+                    rows="<%= @parsed_data.nil? ? 6 : 1 %>"
+                    name="post[saml]"
+                    class="form-control"
+                    placeholder="Paste SAML request here, eg: SAMLRequest=8JAEMW/Si..."></textarea>
         </div>
 
         <button type="submit" class="btn btn-default">Parse</button>
