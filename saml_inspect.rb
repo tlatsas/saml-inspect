@@ -10,6 +10,9 @@ require 'cgi'
 module Sinatra
   module SamlInspectHelpers
     def parse_request_data(data)
+      data.gsub!("\n", '')
+      data.gsub!(' ', '')
+
       uri = URI.parse(data)
 
       if uri.query.nil?
