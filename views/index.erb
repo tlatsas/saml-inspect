@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SAML Inspect</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="hjs/styles/default.css">
+  <script src="hjs/highlight.pack.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1><small>SAML Inspect</small></h1>
+
+    <div class="well">
+      <form action="/" method="post" role="form">
+        <div class="form-group">
+          <label for="saml-input">SAML data/request</label>
+          <textarea id="saml-input" rows="<%= @parsed_data.nil? ? 6 : 1 %>" name="post[saml]" class="form-control" placeholder="Paste the request here"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-default">Parse</button>
+      </form> 
+    </div>
+
+    <% unless @parsed_data.nil? %>
+    <div>
+      <h2><small>Parsed data</small></h2>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">SAML Request</h3>
+        </div>
+        <div class="panel-body">
+          <pre><code><%= h @parsed_data[:saml_request] %></code></pre>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">SAML Response</h3>
+        </div>
+        <div class="panel-body">
+          <pre><code><%= h @parsed_data[:saml_response] %></code></pre>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Query Options</h3>
+        </div>
+        <div class="panel-body">
+
+          <% unless @parsed_data.has_key? :query_params && @parsed_data[:query_params].nil? %>
+            <table class="table table-hover">
+              <thead>
+                <th>Parameter</th>
+                <th>Data</th>
+              </thead>
+              <tbody>
+                <% @parsed_data[:query_params].each do |k, v| %>
+                  <tr>
+                    <td><%= k %></td>
+                    <td><%= v %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <%end%>
+
+        </div>
+      </div>
+
+    </div>
+    <% end %>
+
+  </div> <!-- container -->
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

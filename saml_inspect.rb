@@ -1,4 +1,6 @@
 require 'sinatra/base'
+require 'rexml/document'
+require 'rexml/formatters/transitive'
 require 'zlib'
 require 'base64'
 require 'uri'
@@ -35,7 +37,16 @@ module Sinatra
       decoded = Base64.decode64(unescaped)
       xml = Zlib::Inflate.new(-Zlib::MAX_WBITS).inflate(decoded)
 
-      CGI.unescape(xml)
+      xml = CGI.unescape(xml)
+
+      # pretty format
+      output = ""
+      REXML::Document.new(xml).write(:output => output, :indent => 4, :transitive => false)
+      xml_obj = REXML::Document.new xml
+      formatter = REXML::Formatters::Pretty.new(4)
+      formatter.compact = true
+      formatter.write(xml_obj, output)
+      output
     end
 
     def h(text)
@@ -53,16 +64,14 @@ class SamlInspect < Sinatra::Base
   set :views, "./views"
 
   get '/' do
-    erb :new, :layout => :base
+    erb :index
   end
 
   post '/' do
     data = params[:post][:saml]
     @parsed_data = parse_request_data data
-    erb :inspection, :layout => :base
+    erb :index
   end
-
-  run! if app_file == $0
 end
 
 # vim: ai et ts=2 sw=2 sts=2
