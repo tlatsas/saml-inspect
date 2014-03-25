@@ -44,7 +44,6 @@ module Sinatra
 
       # pretty format
       output = ""
-      REXML::Document.new(xml).write(:output => output, :indent => 4, :transitive => false)
       xml_obj = REXML::Document.new xml
       formatter = REXML::Formatters::Pretty.new(4)
       formatter.compact = true
