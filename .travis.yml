@@ -5,7 +5,7 @@ branches:
   only:
     - master
 deploy:
-  prodiver: heroku
+  provider: heroku
   app: saml-inspect
   strategy: git
   on:
