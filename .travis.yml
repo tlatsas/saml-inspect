@@ -4,3 +4,12 @@ rvm:
 branches:
   only:
     - master
+deploy:
+  prodiver: heroku
+  app: saml-inspect
+  strategy: git
+  on:
+    branch: master
+    repo: tlatsas/saml-inspect
+  api_key:
+    secure: U3rRAn+TGKQMeUu8Vxz7ZfCFlm5lmuzw700dqgf3FwZ9ZVdEIviC/S1gt20Ipq06Su1dBpjd1TtjcIufHBlZdw200ZS4wo1rLfyoP30OFgepTdlr3RFFZGfYED9jTzLV4MiebEHkhP1FybnOQgqgbZ3iaTBirrjcoKm5DjSw4fs=
