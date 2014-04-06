@@ -1,6 +1,5 @@
 require 'sinatra/base'
-require 'rexml/document'
-require 'rexml/formatters/transitive'
+require 'nokogiri'
 require 'zlib'
 require 'base64'
 require 'uri'
@@ -40,15 +39,11 @@ module Sinatra
       decoded = Base64.decode64(unescaped)
       xml = Zlib::Inflate.new(-Zlib::MAX_WBITS).inflate(decoded)
 
-      #xml = CGI.unescape(xml)
+      doc = Nokogiri::XML(xml) do |cfg|
+        cfg.nonet
+      end
 
-      # pretty format
-      output = ""
-      xml_obj = REXML::Document.new xml
-      formatter = REXML::Formatters::Pretty.new(4)
-      formatter.compact = true
-      formatter.write(xml_obj, output)
-      output
+      doc.root.to_s
     end
 
     def h(text)

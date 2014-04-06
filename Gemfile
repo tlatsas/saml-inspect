@@ -3,6 +3,7 @@ ruby '2.0.0'
 
 gem 'sinatra'
 gem 'rake'
+gem 'nokogiri'
 
 group :development do
   gem 'pry'
