@@ -21,3 +21,6 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+.idea/*
+*.iml
